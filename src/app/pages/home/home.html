@@ -2,5 +2,5 @@
   <h1>Meteolab</h1>
   <p>Consultez la météo d'une ville en un clic.</p>
 
-  <p class="empty">Recherchez une ville pour afficher la météo.</p>
+  <app-search (citySearch)="navigateToWeather($event)" />
 </section>
