@@ -44,6 +44,8 @@ Ouvrir [http://localhost:4200](http://localhost:4200).
 
 ## Fonctionnalités supplémentaires
 
+- Prévisions météo sur 5 jours (endpoint `/forecast` d'OpenWeather), affichées
+  sous la météo actuelle une fois la ville chargée avec succès.
 
 ## Architecture
 
@@ -65,7 +67,12 @@ composants (`@Input` / `@Output` / service), gestion d'état (signals et/ou RxJS
 
 ## Postman
 
-À compléter 
+La collection Postman se trouve dans
+[`postman/Meteolab.postman_collection.json`](./postman/Meteolab.postman_collection.json).
+Elle couvre la météo actuelle (`/weather`), les prévisions 5 jours
+(`/forecast`) et des cas d'erreur (ville introuvable, clé API invalide).
+Importer le fichier dans Postman et renseigner la variable de collection
+`apiKey` avec une clé OpenWeather valide.
 
 ## Difficultés rencontrées
 

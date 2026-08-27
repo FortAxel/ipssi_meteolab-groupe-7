@@ -1,4 +1,21 @@
-<section>
-  <h1>Météo — {{ city() }}</h1>
-  <p>Les données météo seront affichées ici.</p>
+<section class="weather">
+  @if (weatherService.isLoading()) {
+    <p class="weather__status" role="status">Chargement de la météo...</p>
+  } @else if (weatherService.errorMessage()) {
+    <p class="weather__status weather__status--error" role="alert">
+      {{ weatherService.errorMessage() }}
+    </p>
+  } @else if (weatherService.weather(); as weather) {
+    <app-weather-card [weather]="weather" />
+
+    @if (weatherService.isForecastLoading()) {
+      <p class="weather__status">Chargement des prévisions...</p>
+    } @else if (weatherService.forecastErrorMessage()) {
+      <p class="weather__status weather__status--error" role="alert">
+        {{ weatherService.forecastErrorMessage() }}
+      </p>
+    } @else if (weatherService.forecast().length) {
+      <app-forecast [days]="weatherService.forecast()" />
+    }
+  }
 </section>

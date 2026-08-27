@@ -40,3 +40,19 @@ export interface OpenWeatherError {
   cod: string | number;
   message: string;
 }
+
+export interface OpenWeatherForecastItem {
+  dt: number;
+  dt_txt: string;
+  main: OpenWeatherMain;
+  weather: OpenWeatherCondition[];
+  wind: OpenWeatherWind;
+}
+
+export interface OpenWeatherForecastResponse {
+  list: OpenWeatherForecastItem[];
+  city: {
+    name: string;
+    country: string;
+  };
+}
