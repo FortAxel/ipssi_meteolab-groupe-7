@@ -42,3 +42,6 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Cle API OpenWeather - ne jamais versionner
+/src/environments/environment.ts
