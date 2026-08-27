@@ -1,0 +1,16 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="search-form" novalidate>
+  <div class="search-field">
+    <input
+      formControlName="city"
+      type="text"
+      placeholder="Entrez une ville…"
+      autocomplete="off"
+      aria-label="Ville"
+    />
+    <button type="submit">Rechercher</button>
+  </div>
+
+  @if (cityInvalid) {
+    <p class="error">Veuillez saisir une ville.</p>
+  }
+</form>
