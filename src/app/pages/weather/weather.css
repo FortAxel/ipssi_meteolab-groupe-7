@@ -2,17 +2,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1.5rem;
   min-height: 60vh;
   padding: 2rem 1rem;
 }
 
 .weather__status {
   font-size: 1.1rem;
-  color: #555;
+  color: rgba(255, 255, 255, 0.75);
   text-align: center;
 }
 
-.weather__status--error {
-  color: #d32f2f;
-}
+.weather__status--error { color: #ffb3b3; }

@@ -1,32 +1,32 @@
-:host {
-  display: block;
-}
+:host { display: block; }
 
 .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid #ddd;
+  padding: 1rem 2rem;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .brand {
+  font-size: 1.2rem;
   font-weight: 700;
-  text-decoration: none;
-  color: inherit;
+  letter-spacing: 0.05em;
+  color: #fff;
 }
 
-nav {
-  display: flex;
-  gap: 1rem;
-}
+nav { display: flex; gap: 1.5rem; }
 
 nav a {
-  text-decoration: none;
-  color: inherit;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.75);
+  transition: color 0.2s;
 }
 
+nav a:hover,
 nav a.active {
-  font-weight: 700;
-  text-decoration: underline;
+  color: #fff;
+  font-weight: 600;
 }
