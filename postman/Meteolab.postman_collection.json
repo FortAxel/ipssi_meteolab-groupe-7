@@ -1,0 +1,295 @@
+{
+  "info": {
+    "_postman_id": "5f3a6e0a-9d3b-4b7a-8c2b-1e7c0f5a2b10",
+    "name": "Meteolab - Weather App",
+    "description": "Collection Postman du projet Meteolab (IPSSI - groupe 7). Permet de tester les endpoints OpenWeather utilisés par l'application Angular : météo actuelle (Current Weather) et prévisions 5 jours (Forecast, fonctionnalité libre).\n\nVariables à renseigner :\n- base_url : https://api.openweathermap.org/data/2.5\n- api_key : votre clé API OpenWeather personnelle (jamais commitée)\n- city : ville par défaut utilisée par les requêtes (ex. Paris)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "https://api.openweathermap.org/data/2.5", "type": "string" },
+    { "key": "api_key", "value": "", "type": "string" },
+    { "key": "city", "value": "Paris", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Current Weather",
+      "description": "Météo actuelle d'une ville. Endpoint : GET /weather. Utilisé par WeatherService.getCurrentWeather() pour alimenter le WeatherComponent (nom ville, pays, température, ressenti, humidité, vent, icône).",
+      "item": [
+        {
+          "name": "Paris",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/weather?q=Paris&appid={{api_key}}&units=metric&lang=fr",
+              "host": ["{{base_url}}"],
+              "path": ["weather"],
+              "query": [
+                { "key": "q", "value": "Paris", "description": "Nom de la ville recherchée" },
+                { "key": "appid", "value": "{{api_key}}", "description": "Clé API OpenWeather" },
+                { "key": "units", "value": "metric", "description": "Températures renvoyées directement en °C" },
+                { "key": "lang", "value": "fr", "description": "Description météo en français" }
+              ]
+            },
+            "description": "Objectif : récupérer la météo actuelle de Paris.\n\nMéthode : GET\nParamètres : q (ville), appid (clé API), units=metric (°C), lang=fr\n\nRéponse attendue : 200 OK, JSON contenant name, sys.country, main.temp, main.feels_like, main.humidity, wind.speed, weather[0].description, weather[0].icon."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Statut 200 OK', () => pm.response.to.have.status(200));",
+                  "",
+                  "pm.test('Contient les donnees meteo attendues', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body).to.have.property('name');",
+                  "  pm.expect(body.sys).to.have.property('country');",
+                  "  pm.expect(body.main).to.have.property('temp');",
+                  "  pm.expect(body.main).to.have.property('feels_like');",
+                  "  pm.expect(body.main).to.have.property('humidity');",
+                  "  pm.expect(body.wind).to.have.property('speed');",
+                  "  pm.expect(body.weather[0]).to.have.property('description');",
+                  "  pm.expect(body.weather[0]).to.have.property('icon');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "Lille",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/weather?q=Lille&appid={{api_key}}&units=metric&lang=fr",
+              "host": ["{{base_url}}"],
+              "path": ["weather"],
+              "query": [
+                { "key": "q", "value": "Lille" },
+                { "key": "appid", "value": "{{api_key}}" },
+                { "key": "units", "value": "metric" },
+                { "key": "lang", "value": "fr" }
+              ]
+            },
+            "description": "Objectif : récupérer la météo actuelle de Lille.\n\nMéthode : GET\nParamètres : q (ville), appid (clé API), units=metric (°C), lang=fr\n\nRéponse attendue : 200 OK, même structure JSON que la requête Paris."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Statut 200 OK', () => pm.response.to.have.status(200));",
+                  "",
+                  "pm.test('Ville correspond a la requete', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.name.toLowerCase()).to.include('lille');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "Tokyo",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/weather?q=Tokyo&appid={{api_key}}&units=metric&lang=fr",
+              "host": ["{{base_url}}"],
+              "path": ["weather"],
+              "query": [
+                { "key": "q", "value": "Tokyo" },
+                { "key": "appid", "value": "{{api_key}}" },
+                { "key": "units", "value": "metric" },
+                { "key": "lang", "value": "fr" }
+              ]
+            },
+            "description": "Objectif : récupérer la météo actuelle de Tokyo.\n\nMéthode : GET\nParamètres : q (ville), appid (clé API), units=metric (°C), lang=fr\n\nRéponse attendue : 200 OK, même structure JSON que la requête Paris."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Statut 200 OK', () => pm.response.to.have.status(200));",
+                  "",
+                  "pm.test('Ville correspond a la requete', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.name.toLowerCase()).to.include('tokyo');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Forecast",
+      "description": "Prévisions météo sur 5 jours (fonctionnalité libre de la Personne 4). Endpoint : GET /forecast. Renvoie des créneaux de 3h sur 5 jours (~40 entrées), regroupés par jour côté Angular (WeatherService.getForecast) pour calculer un min/max et une icône représentative par jour, affichés par le composant Forecast.",
+      "item": [
+        {
+          "name": "Paris",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/forecast?q=Paris&appid={{api_key}}&units=metric&lang=fr",
+              "host": ["{{base_url}}"],
+              "path": ["forecast"],
+              "query": [
+                { "key": "q", "value": "Paris", "description": "Nom de la ville recherchée" },
+                { "key": "appid", "value": "{{api_key}}", "description": "Clé API OpenWeather" },
+                { "key": "units", "value": "metric", "description": "Températures renvoyées directement en °C" },
+                { "key": "lang", "value": "fr", "description": "Description météo en français" }
+              ]
+            },
+            "description": "Objectif : récupérer les prévisions météo sur 5 jours (créneaux de 3h) pour Paris.\n\nMéthode : GET\nEndpoint : /forecast\nParamètres : q (ville), appid (clé API), units=metric (°C), lang=fr\n\nRéponse attendue : 200 OK, JSON contenant city.name, city.country et une liste `list` d'environ 40 entrées, chacune avec dt_txt (date/heure), main.temp, weather[0].description et weather[0].icon."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Statut 200 OK', () => pm.response.to.have.status(200));",
+                  "",
+                  "pm.test('Contient une liste de previsions', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body).to.have.property('list');",
+                  "  pm.expect(body.list).to.be.an('array').that.is.not.empty;",
+                  "});",
+                  "",
+                  "pm.test('Chaque entree contient les donnees attendues', () => {",
+                  "  const body = pm.response.json();",
+                  "  const item = body.list[0];",
+                  "  pm.expect(item).to.have.property('dt_txt');",
+                  "  pm.expect(item.main).to.have.property('temp');",
+                  "  pm.expect(item.weather[0]).to.have.property('description');",
+                  "  pm.expect(item.weather[0]).to.have.property('icon');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "Lille",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/forecast?q=Lille&appid={{api_key}}&units=metric&lang=fr",
+              "host": ["{{base_url}}"],
+              "path": ["forecast"],
+              "query": [
+                { "key": "q", "value": "Lille" },
+                { "key": "appid", "value": "{{api_key}}" },
+                { "key": "units", "value": "metric" },
+                { "key": "lang", "value": "fr" }
+              ]
+            },
+            "description": "Objectif : récupérer les prévisions météo sur 5 jours pour Lille.\n\nMéthode : GET\nParamètres : q, appid, units=metric, lang=fr\n\nRéponse attendue : 200 OK, même structure JSON que la requête Forecast Paris."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Statut 200 OK', () => pm.response.to.have.status(200));",
+                  "pm.test('Contient une liste de previsions', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.list).to.be.an('array').that.is.not.empty;",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "Tokyo",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/forecast?q=Tokyo&appid={{api_key}}&units=metric&lang=fr",
+              "host": ["{{base_url}}"],
+              "path": ["forecast"],
+              "query": [
+                { "key": "q", "value": "Tokyo" },
+                { "key": "appid", "value": "{{api_key}}" },
+                { "key": "units", "value": "metric" },
+                { "key": "lang", "value": "fr" }
+              ]
+            },
+            "description": "Objectif : récupérer les prévisions météo sur 5 jours pour Tokyo.\n\nMéthode : GET\nParamètres : q, appid, units=metric, lang=fr\n\nRéponse attendue : 200 OK, même structure JSON que la requête Forecast Paris."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Statut 200 OK', () => pm.response.to.have.status(200));",
+                  "pm.test('Contient une liste de previsions', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.list).to.be.an('array').that.is.not.empty;",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Gestion des erreurs",
+      "description": "Requêtes illustrant la gestion des erreurs implémentée côté Angular (WeatherService) : ville introuvable (404). Le service Angular traduit ces réponses en messages utilisateur (voir README).",
+      "item": [
+        {
+          "name": "Ville introuvable (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/weather?q=VilleInexistanteXYZ123&appid={{api_key}}&units=metric&lang=fr",
+              "host": ["{{base_url}}"],
+              "path": ["weather"],
+              "query": [
+                { "key": "q", "value": "VilleInexistanteXYZ123", "description": "Ville volontairement invalide" },
+                { "key": "appid", "value": "{{api_key}}" },
+                { "key": "units", "value": "metric" },
+                { "key": "lang", "value": "fr" }
+              ]
+            },
+            "description": "Objectif : vérifier le comportement de l'API pour une ville qui n'existe pas.\n\nMéthode : GET\n\nRéponse attendue : 404 Not Found, avec un corps JSON { cod: '404', message: 'city not found' }. Côté Angular, WeatherService intercepte ce statut et affiche « Ville introuvable. »."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Statut 404 Not Found', () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        }
+      ]
+    }
+  ]
+}

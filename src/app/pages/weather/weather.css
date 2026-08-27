@@ -1,0 +1,19 @@
+.weather-page {
+  padding: 1.5rem 1rem;
+}
+
+.status {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-top: 3rem;
+  color: #555;
+}
+
+.status--loading {
+  color: #2563eb;
+}
+
+.status--error {
+  color: #dc2626;
+  font-weight: 600;
+}

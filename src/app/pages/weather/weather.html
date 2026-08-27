@@ -1,4 +1,15 @@
-<section>
-  <h1>Météo — {{ city() }}</h1>
-  <p>Les données météo seront affichées ici.</p>
+<section class="weather-page">
+  @if (isLoading()) {
+    <p class="status status--loading">Chargement de la météo...</p>
+  } @else if (errorMessage()) {
+    <p class="status status--error">{{ errorMessage() }}</p>
+  } @else if (weather(); as data) {
+    <app-weather-card [weather]="data" />
+
+    @if (forecastDays(); as days) {
+      <app-forecast [days]="days" />
+    }
+  } @else {
+    <p class="status">Aucune ville sélectionnée.</p>
+  }
 </section>

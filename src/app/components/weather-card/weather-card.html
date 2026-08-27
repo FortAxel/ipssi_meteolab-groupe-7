@@ -1,0 +1,15 @@
+<article class="weather-card">
+  <header class="weather-card__header">
+    <h2>{{ weather().city }} ({{ weather().country }})</h2>
+    <img [src]="iconUrl()" [alt]="weather().description" width="72" height="72" />
+  </header>
+
+  <p class="weather-card__temperature">{{ weather().temperature | number: '1.0-0' }}&nbsp;°C</p>
+  <p class="weather-card__description">{{ weather().description | titlecase }}</p>
+
+  <ul class="weather-card__details">
+    <li>Ressenti : {{ weather().feelsLike | number: '1.0-0' }}&nbsp;°C</li>
+    <li>Humidité : {{ weather().humidity }}&nbsp;%</li>
+    <li>Vent : {{ weather().windSpeed }}&nbsp;km/h</li>
+  </ul>
+</article>

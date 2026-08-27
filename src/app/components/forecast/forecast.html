@@ -1,0 +1,16 @@
+<section class="forecast">
+  <h3>Prévisions sur 5 jours</h3>
+
+  <div class="forecast__days">
+    @for (day of days(); track day.date) {
+      <article class="forecast-day">
+        <p class="forecast-day__label">{{ day.label }}</p>
+        <img [src]="iconUrl(day.icon)" [alt]="day.description" width="48" height="48" />
+        <p class="forecast-day__temps">
+          {{ day.maxTemp | number: '1.0-0' }}° / {{ day.minTemp | number: '1.0-0' }}°
+        </p>
+        <p class="forecast-day__desc">{{ day.description | titlecase }}</p>
+      </article>
+    }
+  </div>
+</section>

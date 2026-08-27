@@ -44,6 +44,7 @@ Ouvrir [http://localhost:4200](http://localhost:4200).
 
 ## Fonctionnalités supplémentaires
 
+- **Prévisions à 5 jours** : sur la page `/weather/:city`, en plus de la météo actuelle, un second appel à l'API OpenWeather (endpoint `/forecast`) affiche les prévisions des 5 prochains jours (température min/max, description, icône) via le composant `Forecast`. Les créneaux de 3h renvoyés par l'API sont regroupés par jour côté `WeatherService`.
 
 ## Architecture
 
@@ -59,13 +60,32 @@ composants (`@Input` / `@Output` / service), gestion d'état (signals et/ou RxJS
 
 ## API
 
-À compléter :
+- API utilisée : [OpenWeather](https://openweathermap.org/api)
 
-- API utilisée : OpenWeather
+| Endpoint | Méthode | Paramètres | Données récupérées |
+| --- | --- | --- | --- |
+| `/data/2.5/weather` | GET | `q` (ville), `appid` (clé API), `units=metric`, `lang=fr` | Météo actuelle : nom de la ville, pays, température, ressenti, description, humidité, vent, icône |
+| `/data/2.5/forecast` | GET | `q`, `appid`, `units=metric`, `lang=fr` | Prévisions par créneaux de 3h sur 5 jours, regroupées par jour (fonctionnalité libre) |
+
+Les températures sont demandées directement en degrés Celsius via le paramètre `units=metric` plutôt que converties manuellement depuis les Kelvin renvoyés par défaut.
 
 ## Postman
 
-À compléter 
+La collection Postman du projet se trouve dans [`postman/Meteolab.postman_collection.json`](postman/Meteolab.postman_collection.json).
+
+Pour l'utiliser :
+
+1. Importer le fichier dans Postman (`Import` > sélectionner le fichier).
+2. Renseigner la variable de collection `api_key` avec votre clé API OpenWeather (ne jamais commiter de vraie clé).
+3. Les variables `base_url` et `city` sont préremplies et modifiables.
+
+Organisation de la collection :
+
+- **Current Weather** — météo actuelle pour Paris, Lille, Tokyo
+- **Forecast** — prévisions 5 jours pour Paris, Lille, Tokyo (fonctionnalité libre)
+- **Gestion des erreurs** — exemple de requête sur une ville introuvable (404)
+
+Chaque requête est documentée (objectif, méthode, paramètres, réponse attendue) et possède des tests Postman (`pm.test`) qui vérifient le code de statut et la présence des champs utilisés par l'application.
 
 ## Difficultés rencontrées
 
