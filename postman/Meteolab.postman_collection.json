@@ -1,0 +1,94 @@
+{
+  "info": {
+    "name": "Meteolab - OpenWeather API",
+    "description": "Collection Postman pour tester l'API OpenWeather utilisée par Meteolab : météo actuelle, prévisions 5 jours et cas d'erreur (ville introuvable, erreur API, 429).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://api.openweathermap.org/data/2.5", "type": "string" },
+    { "key": "apiKey", "value": "YOUR_OPENWEATHER_API_KEY", "type": "string" },
+    { "key": "city", "value": "Paris", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Current Weather",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/weather?q={{city}}&appid={{apiKey}}&units=metric&lang=fr",
+          "host": ["{{baseUrl}}"],
+          "path": ["weather"],
+          "query": [
+            { "key": "q", "value": "{{city}}" },
+            { "key": "appid", "value": "{{apiKey}}" },
+            { "key": "units", "value": "metric" },
+            { "key": "lang", "value": "fr" }
+          ]
+        },
+        "description": "Récupère les conditions météo actuelles d'une ville (température, ressenti, humidité, vent, icône)."
+      },
+      "response": []
+    },
+    {
+      "name": "Forecast (5 jours / 3h)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/forecast?q={{city}}&appid={{apiKey}}&units=metric&lang=fr",
+          "host": ["{{baseUrl}}"],
+          "path": ["forecast"],
+          "query": [
+            { "key": "q", "value": "{{city}}" },
+            { "key": "appid", "value": "{{apiKey}}" },
+            { "key": "units", "value": "metric" },
+            { "key": "lang", "value": "fr" }
+          ]
+        },
+        "description": "Récupère les prévisions météo sur 5 jours (par tranche de 3h) d'une ville. Endpoint utilisé pour la fonctionnalité libre \"prévisions 5 jours\" du WeatherComponent."
+      },
+      "response": []
+    },
+    {
+      "name": "Current Weather - Ville introuvable (404)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/weather?q=villequinexistepas123&appid={{apiKey}}&units=metric&lang=fr",
+          "host": ["{{baseUrl}}"],
+          "path": ["weather"],
+          "query": [
+            { "key": "q", "value": "villequinexistepas123" },
+            { "key": "appid", "value": "{{apiKey}}" },
+            { "key": "units", "value": "metric" },
+            { "key": "lang", "value": "fr" }
+          ]
+        },
+        "description": "Cas d'erreur : ville introuvable. L'API retourne un statut 404, affiché par l'application comme \"Ville introuvable.\""
+      },
+      "response": []
+    },
+    {
+      "name": "Current Weather - Clé API invalide (401)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/weather?q={{city}}&appid=cleinvalide&units=metric&lang=fr",
+          "host": ["{{baseUrl}}"],
+          "path": ["weather"],
+          "query": [
+            { "key": "q", "value": "{{city}}" },
+            { "key": "appid", "value": "cleinvalide" },
+            { "key": "units", "value": "metric" },
+            { "key": "lang", "value": "fr" }
+          ]
+        },
+        "description": "Cas d'erreur : clé API invalide/manquante. L'API retourne un statut 401, affiché par l'application comme une erreur générique \"Impossible de récupérer les données météo.\""
+      },
+      "response": []
+    }
+  ]
+}

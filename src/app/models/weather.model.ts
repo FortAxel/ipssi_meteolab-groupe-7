@@ -8,3 +8,11 @@ export interface Weather {
   windSpeed: number;
   iconUrl: string;
 }
+
+export interface ForecastDay {
+  date: string;
+  minTemp: number;
+  maxTemp: number;
+  description: string;
+  iconUrl: string;
+}

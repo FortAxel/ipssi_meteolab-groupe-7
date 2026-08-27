@@ -1,0 +1,32 @@
+<article class="weather-card">
+  <header class="weather-card__header">
+    <div>
+      <h2 class="weather-card__city">{{ weather().city }}, {{ weather().country }}</h2>
+      <p class="weather-card__description">{{ weather().description }}</p>
+    </div>
+    <img
+      class="weather-card__icon"
+      [src]="weather().iconUrl"
+      [alt]="weather().description"
+      width="80"
+      height="80"
+    />
+  </header>
+
+  <p class="weather-card__temperature">{{ weather().temperature }}°C</p>
+
+  <ul class="weather-card__details">
+    <li>
+      <span class="weather-card__label">Ressenti</span>
+      <span>{{ weather().feelsLike }}°C</span>
+    </li>
+    <li>
+      <span class="weather-card__label">Humidité</span>
+      <span>{{ weather().humidity }}%</span>
+    </li>
+    <li>
+      <span class="weather-card__label">Vent</span>
+      <span>{{ weather().windSpeed }} km/h</span>
+    </li>
+  </ul>
+</article>
